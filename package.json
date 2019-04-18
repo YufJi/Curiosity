@@ -1,0 +1,54 @@
+{
+  "name": "node_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && webpack",
+    "dev": "webpack-dev-server --config webpack.config.js",
+    "serve:dev": "serve -l 4000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.dev.sh.ctripcorp.com:ji_yf/bus-fe-nfes-cli.git"
+  },
+  "author": "jiyufegn",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.4.2",
+    "@babel/runtime-corejs2": "^7.4.2",
+    "child_process": "^1.0.2",
+    "core-js": "^2.6.5",
+    "dayjs": "^1.8.11",
+    "prompts": "^2.0.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "shelljs": "^0.8.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "autoprefixer": "^9.5.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.1",
+    "ejs": "^2.6.1",
+    "ejs-html-loader": "^4.0.1",
+    "extract-loader": "^3.1.0",
+    "file-loader": "^3.0.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-pxtorem": "^4.0.1",
+    "serve": "^10.1.2",
+    "webpack": "^4.29.6",
+    "webpack-bundle-analyzer": "^3.1.0",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
+  }
+}

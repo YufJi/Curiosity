@@ -1,0 +1,23 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "useBuiltIns": "usage",
+      "targets": {
+        "chrome": "58",
+        "ie": "8"
+      }
+    }],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-numeric-separator",
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "corejs": 2,
+        "helpers": false,
+        "regenerator": true
+      }
+    ]
+  ]
+}

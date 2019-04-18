@@ -1,0 +1,6 @@
+dist/
+.vscode/
+node_modules/
+.npmrc
+test.js
+util.js
