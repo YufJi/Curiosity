@@ -1,19 +1,16 @@
 {
-  "name": "node_test",
+  "name": "awsome-webpack-config",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "rm -rf dist && webpack",
     "dev": "webpack-dev-server --config webpack.config.js",
-    "serve:dev": "serve -l 4000"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@git.dev.sh.ctripcorp.com:ji_yf/bus-fe-nfes-cli.git"
+    "serve:dev": "serve -l 4000",
+    "count": "cloc ./src"
   },
   "author": "jiyufegn",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.4.2",
     "@babel/runtime-corejs2": "^7.4.2",
@@ -33,6 +30,7 @@
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.5.0",
     "babel-loader": "^8.0.5",
+    "cloc": "^2.4.0",
     "css-loader": "^2.1.1",
     "ejs": "^2.6.1",
     "ejs-html-loader": "^4.0.1",
