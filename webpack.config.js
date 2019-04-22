@@ -1,23 +1,25 @@
 
-const path = require('path')
+const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 
 module.exports = {
   entry: {
-    // index: path.join(__dirname, './src/index.js'),
+    index: path.join(__dirname, './src/index.tsx'),
     // list: path.join(__dirname, './src/list.js'),
-    ejs_index: path.join(__dirname, './ejs/index.ejs')
+    // ejs_index: path.join(__dirname, './ejs/index.ejs'),
   },
-
+  output: {
+    path: path.resolve(__dirname, 'build'),
+  },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
+      '@': path.resolve(__dirname, 'src'),
     },
-    extensions: ['.js'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   mode: 'development',
   externals: {
@@ -38,56 +40,64 @@ module.exports = {
           minSize: 0,
           name: 'common',
         },
-      }
-    }
+      },
+    },
   },
   module: {
     rules: [{
-      test: /.js$/,
+      test: /.(js|jsx)$/,
       exclude: /node_modules/,
       use: [{
-        loader: 'babel-loader'
-      }]
+        loader: 'babel-loader',
+      }],
+    }, {
+      test: /.(ts|tsx)$/,
+      exclude: /node_modules/,
+      use: [{
+        loader: 'ts-loader',
+      }],
     }, {
       test: /.less$/,
       use: [{
         loader: MiniCssExtractPlugin.loader,
       }, {
+        loader: 'css-modules-typescript-loader',
+      }, {
         loader: 'css-loader',
         options: {
           modules: true,
-        }
-      }, 'postcss-loader', 'less-loader']
+        },
+      }, 'postcss-loader', 'less-loader'],
     }, {
       test: /.ejs$/,
       use: [{
         loader: 'file-loader',
         options: {
           name: 'html/[name].html',
-        }
+        },
       }, {
-        loader: 'extract-loader'
+        loader: 'extract-loader',
       }, {
         loader: 'html-loader',
         options: {
           minimize: false,
           removeComments: true,
-          collapseWhitespace: false
+          collapseWhitespace: false,
         },
       }, {
         loader: 'ejs-html-loader',
         options: {},
       }],
-    }]
+    }],
   },
   plugins: [
-    // new HtmlWebpackPlugin({
-    //   filename: 'index.html',
-    //   template: 'src/index.html'
-    // }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/index.html',
+    }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      chunkFilename: '[name].css'
+      chunkFilename: '[name].css',
     }),
     new webpack.HotModuleReplacementPlugin(),
     new BundleAnalyzerPlugin({
@@ -100,5 +110,5 @@ module.exports = {
     open: false,
     hot: true,
     hotOnly: true,
-  }
+  },
 };
