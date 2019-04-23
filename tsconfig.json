@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "es5",
     "module": "commonjs",
     "jsx": "react",
-    "lib": ["DOM", "ESNext"],
+    "lib": ["dom", "esnext"],
     "moduleResolution": "node",
     "allowJs": true,
     "noEmitOnError": true,
@@ -12,7 +12,7 @@
     "skipLibCheck": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "removeComments": false,
+    "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
     "baseUrl": "./",
@@ -22,7 +22,11 @@
       ]
     },
   },
+  "include": [
+    "src/**/*",
+    "declaration"
+  ],
   "exclude": [
-    "node_modules"
+    "node_modules",
   ]
 }

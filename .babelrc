@@ -10,7 +10,6 @@
     "@babel/preset-react"
   ],
   "plugins": [
-    "@babel/plugin-proposal-numeric-separator",
     [
       "@babel/plugin-transform-runtime",
       {

@@ -5,6 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
+const devMode = false;
+
 
 module.exports = {
   entry: {
@@ -21,7 +23,7 @@ module.exports = {
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
-  mode: 'development',
+  mode: devMode ? 'development' : 'production',
   externals: {
     // 'react': 'React',
     // 'react-dom': 'ReactDOM'
@@ -57,17 +59,25 @@ module.exports = {
         loader: 'ts-loader',
       }],
     }, {
-      test: /.less$/,
+      test: /.scss$/,
       use: [{
         loader: MiniCssExtractPlugin.loader,
       }, {
         loader: 'css-modules-typescript-loader',
+        options: {
+          modules: true, // 开启css-modules
+          namedExport: true,
+          camelCase: true,
+          minimize: true,
+          sass: true,
+          localIdentName: '[local]_[hash:base64:5]',
+        },
       }, {
         loader: 'css-loader',
         options: {
           modules: true,
         },
-      }, 'postcss-loader', 'less-loader'],
+      }, 'postcss-loader', 'sass-loader'],
     }, {
       test: /.ejs$/,
       use: [{
