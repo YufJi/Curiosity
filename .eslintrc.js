@@ -62,9 +62,7 @@ module.exports = {
     "no-plusplus": [2],         //禁止使用++，--
     "no-useless-escape": [1],
     "react/no-unused-state": [1],
-    "import/first": [0]
-  },
-  "parserOptions": {
-
+    "import/first": [0],
+    "class-methods-use-this": [0]
   }
 }

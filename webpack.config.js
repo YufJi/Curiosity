@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const TestOnePlugin = require('./webpackPlugins/testOne');
 
 const devMode = false;
 
@@ -15,7 +17,7 @@ module.exports = {
     // ejs_index: path.join(__dirname, './ejs/index.ejs'),
   },
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
     alias: {
@@ -25,15 +27,22 @@ module.exports = {
   },
   mode: devMode ? 'development' : 'production',
   externals: {
-    // 'react': 'React',
-    // 'react-dom': 'ReactDOM'
+    // react: 'React',
+    // 'react-dom': 'ReactDOM',
   },
   optimization: {
     splitChunks: {
       cacheGroups: {
-        react: {
-          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-          name: 'react-bundle',
+        framework: {
+          test: /[\\/](react|react-dom)[\\/]/,
+          name: 'framework',
+          chunks: 'all',
+        },
+        lib: {
+          test: /[\\/]dayjs[\\/]/,
+          name: 'lib',
+          minChunks: 1,
+          minSize: 0,
           chunks: 'all',
         },
         common: {
@@ -56,6 +65,8 @@ module.exports = {
       test: /.(ts|tsx)$/,
       exclude: /node_modules/,
       use: [{
+        loader: 'babel-loader',
+      }, {
         loader: 'ts-loader',
       }],
     }, {
@@ -64,14 +75,6 @@ module.exports = {
         loader: MiniCssExtractPlugin.loader,
       }, {
         loader: 'css-modules-typescript-loader',
-        options: {
-          modules: true, // 开启css-modules
-          namedExport: true,
-          camelCase: true,
-          minimize: true,
-          sass: true,
-          localIdentName: '[local]_[hash:base64:5]',
-        },
       }, {
         loader: 'css-loader',
         options: {
@@ -109,10 +112,12 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[name].css',
     }),
+    new TestOnePlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new BundleAnalyzerPlugin({
       openAnalyzer: false,
     }),
+
   ],
   devServer: {
     compress: true,
