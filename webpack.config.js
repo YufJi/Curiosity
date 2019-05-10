@@ -5,10 +5,9 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const TestOnePlugin = require('./webpackPlugins/testOne');
+const TestOnePlugin = require('./webpack/plugins/testOne');
 
 const devMode = false;
-
 
 module.exports = {
   entry: {
@@ -23,7 +22,16 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
+    modules: [
+      path.resolve(__dirname, 'node_modules'),
+    ],
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  },
+  resolveLoader: {
+    modules: [
+      'node_modules',
+      path.join(__dirname, 'webpack', 'loaders'),
+    ],
   },
   mode: devMode ? 'development' : 'production',
   externals: {
@@ -100,6 +108,11 @@ module.exports = {
       }, {
         loader: 'ejs-html-loader',
         options: {},
+      }],
+    }, {
+      test: /.txt$/,
+      use: [{
+        loader: 'test-txt',
       }],
     }],
   },

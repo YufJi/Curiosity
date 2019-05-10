@@ -1,41 +1,40 @@
-const prompts = require('prompts')
-const cp = require('child_process')
+const prompts = require('prompts');
+const cp = require('child_process');
 
-async function f () {
+async function f() {
   const response = await prompts({
     type: 'select',
     name: 'version',
-    message: `What's the release version?`,
+    message: 'What\'s the release version?',
     choices: [
       { title: 'auto (by semver version)', value: 'auto' },
       { title: 'beta', value: 'beta' },
-      { title: 'manual', value: 'manual' }
+      { title: 'manual', value: 'manual' },
     ],
-    initial: 1
-  })
+    initial: 1,
+  });
 
   const { version } = response;
-  console.log(response)
-  return;
-  const command = 'npm run build && lerna publish --exact --conventional-commits'
+  const command = 'npm run build && lerna publish --exact --conventional-commits';
   switch (version) {
     case 'auto':
-      cp.execSync(command)
-      break
+      cp.execSync(command);
+      break;
     case 'beta':
-      cp.execSync(command + '--cd-version=prepatch --preid=beta --npm-tag=beta')
-      break
+      cp.execSync(`${command}--cd-version=prepatch --preid=beta --npm-tag=beta`);
+      break;
     case 'manual':
+      // eslint-disable-next-line no-case-declarations
       const manual = await prompts({
         type: 'text',
         name: 'version',
-        message: `What's the EXACT version that you want to publish?`
-      })
-      cp.execFileSync(`${command} --repo-version ${manual.version}`)
-      break
+        message: 'What\'s the EXACT version that you want to publish?',
+      });
+      cp.execFileSync(`${command} --repo-version ${manual.version}`);
+      break;
     default:
-      break
+      break;
   }
 }
 
-f()
+f();

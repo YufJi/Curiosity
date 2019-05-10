@@ -6,6 +6,8 @@ import Header from './header';
 import * as styles from './index.scss';
 import * as commonStyles from './common.scss';
 
+import words from  './hello.txt';
+
 export default class App extends Component {
 
   readonly state = {
@@ -81,6 +83,7 @@ export default class App extends Component {
     return (
       <React.Fragment>
         <Header />
+        <div>{words}</div>
         <div className={styles.name} onClick={() => this.eat<string>('jyf')}>jyf</div>
         <div className={commonStyles.common} onClick={this.jump}>xxx</div>
         {arr.map(num => <div>{num}</div>)}
