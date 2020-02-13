@@ -69,7 +69,7 @@ module.exports = {
       test: /.(js|jsx)$/,
       exclude: [
         /node_modules/,
-        path.join(__dirname, 'src/Adapter'),
+        path.join(__dirname, 'src/core/Adapter'),
       ],
       use: [{
         loader: 'babel-loader',
@@ -87,11 +87,9 @@ module.exports = {
       use: [{
         loader: MiniCssExtractPlugin.loader,
       }, {
-        loader: 'css-modules-typescript-loader',
-      }, {
         loader: 'css-loader',
         options: {
-          modules: true,
+          modules: false,
         },
       }, 'postcss-loader', 'sass-loader'],
     }, {
@@ -142,10 +140,11 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[name].css',
     }),
+    new webpack.HotModuleReplacementPlugin(),
     new TestOnePlugin(),
-    // new BundleAnalyzerPlugin({
+    new BundleAnalyzerPlugin({
 
-    // }),
+    }),
   ],
   devServer: {
     compress: true,

@@ -4,7 +4,7 @@ import React from 'react';
 import render from './Adapter/lib/render';
 import Container from './Adapter/lib/Container';
 
-import App from './bu/app';
+import App from '../bu/app';
 
 const AppCtx = {};
 
