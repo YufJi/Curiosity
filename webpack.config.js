@@ -7,16 +7,18 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const TestOnePlugin = require('./webpack/plugins/testOne');
 
-const devMode = false;
+const devMode = true;
 
 module.exports = {
   entry: {
-    index: path.join(__dirname, './src/index.tsx'),
+    index: path.join(__dirname, './src/index.js'),
     // list: path.join(__dirname, './src/list.js'),
     // ejs_index: path.join(__dirname, './ejs/index.ejs'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+    globalObject: 'this',
   },
   resolve: {
     alias: {
@@ -65,7 +67,10 @@ module.exports = {
   module: {
     rules: [{
       test: /.(js|jsx)$/,
-      exclude: /node_modules/,
+      exclude: [
+        /node_modules/,
+        path.join(__dirname, 'src/Adapter'),
+      ],
       use: [{
         loader: 'babel-loader',
       }],
@@ -114,6 +119,18 @@ module.exports = {
       use: [{
         loader: 'test-txt',
       }],
+    }, {
+      test: /.worker.js$/,
+      use: [{
+        loader: 'worker-loader',
+        options: {
+          inline: true,
+          fallback: false,
+          publicPath: '/',
+        },
+      }, {
+        loader: 'babel-loader',
+      }],
     }],
   },
   plugins: [
@@ -126,11 +143,9 @@ module.exports = {
       chunkFilename: '[name].css',
     }),
     new TestOnePlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new BundleAnalyzerPlugin({
-      openAnalyzer: false,
-    }),
+    // new BundleAnalyzerPlugin({
 
+    // }),
   ],
   devServer: {
     compress: true,

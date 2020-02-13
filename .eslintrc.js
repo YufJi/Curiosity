@@ -63,6 +63,8 @@ module.exports = {
     "no-useless-escape": [1],
     "react/no-unused-state": [1],
     "import/first": [0],
-    "class-methods-use-this": [0]
+    "class-methods-use-this": [0],
+    "no-restricted-globals": [1],
+    "no-unused-vars": [1]
   }
 }

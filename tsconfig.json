@@ -1,33 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "es2015",
-    "experimentalDecorators": true,
-    "jsx": "react",
-    "lib": ["dom", "esnext"],
-    "moduleResolution": "node",
-    "allowJs": true,
-    "noEmitOnError": true,
-    "strict": true,
     "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
     "skipLibCheck": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "baseUrl": "./",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    },
+    "lib": ["WebWorker", "ESNext"],
+    "jsx": "react"
   },
-  "include": [
-    "src/**/*",
-    "declaration", "declaration.d.ts"
-  ],
+  "include": ["./src", "./typings/"],
   "exclude": [
     "node_modules",
+    "build",
+    "scripts",
+    "webpack",
+    "jest",
+    "tslint:latest",
+    "tslint-config-prettier"
   ]
 }
