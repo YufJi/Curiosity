@@ -1,10 +1,11 @@
 
 import React from 'react';
-
 import render from './Adapter/lib/render';
 import Container from './Adapter/lib/Container';
 
-import App from '../bu/app';
+import './mock/api';
+
+import App from '../bu';
 
 const AppCtx = {};
 
@@ -14,5 +15,6 @@ self.onmessage = (e) => {
   console.log('worker线程接收到了消息', e);
   const { data: { event } } = e;
   console.log(event, 'jscore event');
-  AppCtx[`$$METHOD_${event.target.dataset.rid}_${event.type}`] && AppCtx[`$$METHOD_${event.target.dataset.rid}_${event.type}`](event);
+  const dataset = JSON.parse(event.target.dataset);
+  AppCtx[`$$METHOD_${dataset.rid}_${dataset.rtype}`] && AppCtx[`$$METHOD_${dataset.rid}_${dataset.rtype}`](event);
 };
